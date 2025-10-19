@@ -1,13 +1,12 @@
-// Elements
+// Only declare 'map' once
 const map = document.getElementById('map');
 const container = document.getElementById('map-container');
 
-// Run after image loads
 map.onload = () => {
   // Initialize Panzoom
   const panzoom = Panzoom(map, { maxScale: 5, minScale: 1, contain: 'outside', cursor: 'grab' });
 
-  // Only drag when mouse is pressed
+  // Drag only when mouse is pressed
   let isDragging = false;
   map.parentElement.addEventListener('mousedown', () => { isDragging = true; });
   map.parentElement.addEventListener('mouseup', () => { isDragging = false; });
@@ -30,7 +29,7 @@ map.onload = () => {
   overlay.style.pointerEvents = 'none';
   container.appendChild(overlay);
 
-  // Pixel blocks
+  // Pixel block settings
   const BLOCK_SIZE = 40;
   const numBlocksX = Math.floor(map.naturalWidth / BLOCK_SIZE);
   const numBlocksY = Math.floor(map.naturalHeight / BLOCK_SIZE);
