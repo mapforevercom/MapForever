@@ -1,4 +1,3 @@
-// Only declare 'map' once
 const map = document.getElementById('map');
 const container = document.getElementById('map-container');
 
@@ -19,7 +18,7 @@ map.onload = () => {
   // Enable wheel zoom
   map.parentElement.addEventListener('wheel', panzoom.zoomWithWheel);
 
-  // Create overlay div for pixel blocks
+  // Create overlay for pixel blocks
   const overlay = document.createElement('div');
   overlay.style.position = 'absolute';
   overlay.style.top = '0';
@@ -29,7 +28,7 @@ map.onload = () => {
   overlay.style.pointerEvents = 'none';
   container.appendChild(overlay);
 
-  // Pixel block settings
+  // Blocks
   const BLOCK_SIZE = 40;
   const numBlocksX = Math.floor(map.naturalWidth / BLOCK_SIZE);
   const numBlocksY = Math.floor(map.naturalHeight / BLOCK_SIZE);
