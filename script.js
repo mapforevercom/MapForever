@@ -1,10 +1,26 @@
+// Elements
 const map = document.getElementById('map');
 const container = document.getElementById('map-container');
 
+// Run after image loads
 map.onload = () => {
-  const BLOCK_SIZE = 40;
+  // Initialize Panzoom
+  const panzoom = Panzoom(map, { maxScale: 5, minScale: 1, contain: 'outside', cursor: 'grab' });
 
-  // Create overlay div
+  // Only drag when mouse is pressed
+  let isDragging = false;
+  map.parentElement.addEventListener('mousedown', () => { isDragging = true; });
+  map.parentElement.addEventListener('mouseup', () => { isDragging = false; });
+  map.parentElement.addEventListener('mouseleave', () => { isDragging = false; });
+
+  map.parentElement.addEventListener('mousemove', (e) => {
+    if (isDragging) panzoom.pan(e);
+  });
+
+  // Enable wheel zoom
+  map.parentElement.addEventListener('wheel', panzoom.zoomWithWheel);
+
+  // Create overlay div for pixel blocks
   const overlay = document.createElement('div');
   overlay.style.position = 'absolute';
   overlay.style.top = '0';
@@ -14,6 +30,8 @@ map.onload = () => {
   overlay.style.pointerEvents = 'none';
   container.appendChild(overlay);
 
+  // Pixel blocks
+  const BLOCK_SIZE = 40;
   const numBlocksX = Math.floor(map.naturalWidth / BLOCK_SIZE);
   const numBlocksY = Math.floor(map.naturalHeight / BLOCK_SIZE);
 
@@ -26,7 +44,7 @@ map.onload = () => {
       block.style.top = `${y * BLOCK_SIZE}px`;
       block.dataset.id = id++;
 
-      // Double-click event to "buy" block
+      // Double-click to "buy" block
       block.addEventListener('dblclick', () => {
         const name = prompt('Enter your name for this block:');
         if (name) block.classList.add('sold');
@@ -36,4 +54,3 @@ map.onload = () => {
     }
   }
 };
-
