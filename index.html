@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>MapForever</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Quick CSS for map container */
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100%;
+      width: 100%;
+    }
+    #map-container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+    #map {
+      width: 100%;
+      height: auto;
+      display: block;
+      transform-origin: 0 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="map-container">
+    <img src="map.png" id="map" alt="Map">
+  </div>
+
+  <!-- Panzoom JS -->
+  <script src="https://unpkg.com/@panzoom/panzoom/dist/panzoom.min.js"></script>
+  <script>
+    const map = document.getElementById('map');
+    const panzoom = Panzoom(map, {
+      maxScale: 5,
+      minScale: 1,
+      contain: 'outside'
+    });
+
+    // Enable mouse wheel zoom
+    map.parentElement.addEventListener('wheel', panzoom.zoomWithWheel);
+  </script>
+</body>
+</html>
