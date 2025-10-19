@@ -26,8 +26,8 @@ map.onload = () => {
       block.style.top = `${y * BLOCK_SIZE}px`;
       block.dataset.id = id++;
 
-      // Click event for demo
-      block.addEventListener('click', () => {
+      // Double-click event to "buy" block
+      block.addEventListener('dblclick', () => {
         const name = prompt('Enter your name for this block:');
         if (name) block.classList.add('sold');
       });
@@ -36,3 +36,4 @@ map.onload = () => {
     }
   }
 };
+
