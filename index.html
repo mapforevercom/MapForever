@@ -1,20 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>MapForever Test</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://public-frontend-cos.metadl.com/mgx/img/favicon.png" type="image/png">
+    <title>MapForever - Own a Piece of the World</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" crossorigin href="/assets/index-rvQEIJ1i.css">
 </head>
+
 <body>
-  <div id="map-container">
-    <!-- Test image (replace with your real map.png later) -->
-    <img src="map.png" id="map" alt="Map">
-  </div>
+    <!-- Animated Background -->
+    <div class="background-animation">
+        <div class="stars"></div>
+        <div class="particles"></div>
+    </div>
 
-  <!-- Panzoom JS -->
-  <script src="https://unpkg.com/@panzoom/panzoom/dist/panzoom.min.js"></script>
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Own a Piece of the World — Forever.</h1>
+                <p class="hero-subtitle">
+                    Claim one of 500,000 digital pixels on the world map for only 2 €.<br>
+                    Leave your name, image, and message — permanently displayed.
+                </p>
+                <a href="#buy" class="cta-button">
+                    <span>Buy Your Pixel</span>
+                    <div class="glow-underline"></div>
+                </a>
+            </div>
+        </div>
+    </section>
 
-  <!-- Main JS -->
-  <script src="script.js"></script>
+    <!-- Map Section -->
+    <section id="map-section" class="map-section">
+        <div class="container">
+            <h2 class="section-title">Explore the Digital World Map</h2>
+            
+            <div class="map-container">
+                <!-- Interactive PNG World Map -->
+                <div class="interactive-map-wrapper" id="mapWrapper">
+                    <div class="map-viewport" id="mapViewport">
+                        <img src="/assets/world-map-interactive-ltp-1Lzw.png" alt="Interactive World Map" class="interactive-world-map" id="worldMapImage">
+                        <div class="pixel-overlay" id="pixelOverlay"></div>
+                    </div>
+                </div>
+                
+                <!-- Map Controls -->
+                <div class="map-controls">
+                    <button id="zoomIn" class="map-control-btn" title="Zoom In">+</button>
+                    <button id="zoomOut" class="map-control-btn" title="Zoom Out">−</button>
+                    <button id="resetView" class="map-control-btn" title="Reset View">⌂</button>
+                </div>
+                
+                <!-- Pixel Info Panel -->
+                <div id="pixelInfo" class="pixel-info-panel">
+                    <div class="pixel-info-content">
+                        <h4>Pixel Information</h4>
+                        <p>Click on any colored dot to see pixel details</p>
+                    </div>
+                </div>
+            </div>
+            
+            <p class="map-description">Each pixel costs 2 €. Zoom in and choose your spot.</p>
+        </div>
+    </section>
+
+    <!-- Purchase Section -->
+    <section id="buy" class="purchase-section">
+        <div class="container">
+            <h2 class="section-title">Reserve Your Pixel</h2>
+            <p class="section-subtitle">Support the project and immortalize your name on the map.</p>
+            
+            <form class="purchase-form">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" name="fullName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Message (Optional)</label>
+                    <textarea id="message" name="message" rows="4" placeholder="Leave a message for your pixel..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="image" class="file-upload-label">
+                        <span class="upload-text">Upload Image (Optional)</span>
+                        <span class="upload-icon">📁</span>
+                    </label>
+                    <input type="file" id="image" name="image" accept="image/*" class="file-input">
+                </div>
+                
+                <button type="submit" class="submit-button">
+                    Proceed to Payment
+                    <span class="button-glow"></span>
+                </button>
+            </form>
+            
+            <p class="purchase-note">
+                <em>Once purchased, your pixel will be marked permanently on the map.</em>
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">© 2025 MapForever — Own a Piece of the World.</p>
+            <div class="pixel-counter">
+                <p class="counter-text">Pixels claimed: <span id="pixelCount">0</span> / 500,000</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./script.js"></script>
+    <script src="./map-interactive.js"></script>
 </body>
+
 </html>
