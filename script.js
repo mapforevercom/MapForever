@@ -12,7 +12,7 @@ overlay.style.height = '100%';
 overlay.style.pointerEvents = 'none';
 container.appendChild(overlay);
 
-// Wait for map to load to get naturalWidth
+// Wait for map to load
 map.onload = () => {
   const numBlocksX = Math.floor(map.naturalWidth / BLOCK_SIZE);
   const numBlocksY = Math.floor(map.naturalHeight / BLOCK_SIZE);
@@ -36,4 +36,3 @@ map.onload = () => {
     }
   }
 };
-
