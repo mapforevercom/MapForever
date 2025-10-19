@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>MapForever</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    /* Quick CSS for map container */
+    /* Full-page map container */
     body, html {
       margin: 0;
       padding: 0;
@@ -25,6 +25,18 @@
       display: block;
       transform-origin: 0 0;
     }
+    /* Pixel block overlay styling */
+    .block {
+      position: absolute;
+      border: 1px solid rgba(0,0,0,0.1);
+      background: rgba(255,255,255,0.01);
+      pointer-events: auto;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .block.sold {
+      background: rgba(0,255,0,0.4);
+    }
   </style>
 </head>
 <body>
@@ -34,6 +46,8 @@
 
   <!-- Panzoom JS -->
   <script src="https://unpkg.com/@panzoom/panzoom/dist/panzoom.min.js"></script>
+
+  <!-- Panzoom initialization -->
   <script>
     const map = document.getElementById('map');
     const panzoom = Panzoom(map, {
@@ -41,10 +55,50 @@
       minScale: 1,
       contain: 'outside'
     });
-
-    // Enable mouse wheel zoom
     map.parentElement.addEventListener('wheel', panzoom.zoomWithWheel);
   </script>
-<script src="script.js"></script>
+
+  <!-- Pixel Blocks Script -->
+  <script>
+    const BLOCK_SIZE = 40; // size of each block in pixels
+    const container = document.getElementById('map-container');
+
+    // Create overlay div
+    const overlay = document.createElement('div');
+    overlay.style.position = 'absolute';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.width = '100%';
+    overlay.style.height = '100%';
+    overlay.style.pointerEvents = 'none';
+    container.appendChild(overlay);
+
+    // Wait for map to fully load to get naturalWidth
+    map.onload = () => {
+      const numBlocksX = Math.floor(map.naturalWidth / BLOCK_SIZE);
+      const numBlocksY = Math.floor(map.naturalHeight / BLOCK_SIZE);
+
+      let id = 0;
+      for (let y = 0; y < numBlocksY; y++) {
+        for (let x = 0; x < numBlocksX; x++) {
+          const block = document.createElement('div');
+          block.classList.add('block');
+          block.style.width = `${BLOCK_SIZE}px`;
+          block.style.height = `${BLOCK_SIZE}px`;
+          block.style.left = `${x * BLOCK_SIZE}px`;
+          block.style.top = `${y * BLOCK_SIZE}px`;
+          block.dataset.id = id++;
+
+          // Enable click
+          block.addEventListener('click', () => {
+            const name = prompt('Enter your name for this block:');
+            if (name) block.classList.add('sold');
+          });
+
+          overlay.appendChild(block);
+        }
+      }
+    };
+  </script>
 </body>
 </html>
